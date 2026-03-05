@@ -1,0 +1,272 @@
+:root {
+  --primary-green: #6FAF78;
+  --soft-green: #A1CDA2;
+  --light-mint: #DCEFD8;
+  --off-white: #F5F7F2;
+  --accent-peach: #FFB36B;
+  --dark-green: #2D3A32;
+
+  /* Dark mode */
+  --dark-bg: var(--dark-green);
+  --dark-card: #1e1e1e;
+  --dark-text: var(--off-white);
+  --dark-border: var(--soft-green);
+}
+
+/* ===========================
+   PAGE LAYOUT (Split Screen)
+=========================== */
+.login-page {
+  display: flex;
+  min-height: 80vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* LEFT = Login section */
+.login-left {
+  flex: 1;
+  background: var(--light-mint);      /* softer mint to match image */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;          /* smaller padding */
+}
+
+/* RIGHT = Illustration */
+.login-right {
+  flex: 1;
+  background: var(--primary-green);      /* slightly darker mint */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;          /* smaller padding */
+}
+
+/* Illustration image */
+.login-illustration {
+  width: 100%;               /* smaller image */
+  max-width: 580px;         /* smaller limit */
+  border-radius: 12px;      /* makes it visually softer */
+  object-fit: cover;
+  box-shadow: 0px 6px 12px rgba(0,0,0,0.15); /* adds harmony */
+}
+
+/* ===========================
+   LOGIN CARD
+=========================== */
+.login-card {
+  background: var(--off-white);
+  padding: 2rem 3rem;
+  border-radius: 25px;
+  width: 380px;
+  text-align: center;
+  box-shadow: 0px 8px 26px rgba(0,0,0,0.22);
+  max-width: 90vw;
+}
+
+/* Logo */
+.login-logo {
+  width: 160px;
+  margin-bottom: 1rem;
+}
+
+/* Title */
+.login-title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--dark-green);
+}
+
+/* Description */
+.login-subtitle {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+/* ===========================
+   FORM
+=========================== */
+.login-form {
+  display: grid;
+  gap: 1rem;
+  text-align: left;
+}
+
+.login-form label {
+  font-weight: 600;
+  color: var(--dark-green);
+}
+
+/* Inputs */
+.login-form input {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 14px;
+  border: 2px solid rgba(0,0,0,0.1);
+  background: var(--accent-peach);
+  font-size: 1rem;
+  color: black;
+  transition: 0.2s;
+}
+
+.login-form input:focus {
+  border-color: var(--dark-green);
+  outline: none;
+}
+
+/* ===========================
+   LOGIN BUTTON
+=========================== */
+.login-btn {
+  padding: 0.9rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 14px;
+  background: var(--primary-green);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+  filter: hue-rotate(15deg) brightness(0.9);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.login-btn:active {
+  transform: translateY(-1px);
+}
+
+/* ===========================
+   HINT TEXT
+=========================== */
+.login-hint {
+  margin-top: 1.2rem;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+/* Tablet: 768px and below */
+@media (max-width: 768px) {
+  .login-page {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .login-left,
+  .login-right {
+    flex: 1;
+    min-height: 40vh;
+    padding: 1rem;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 1.5rem 2rem;
+  }
+
+  .login-logo {
+    width: 120px;
+  }
+
+  .login-title {
+    font-size: 1.5rem;
+  }
+
+  .login-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .login-form input {
+    padding: 0.8rem;
+  }
+
+  .login-btn {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  .login-hint {
+    font-size: 0.85rem;
+  }
+
+  .login-illustration {
+    max-width: 90%;
+  }
+}
+
+/* Mobile: 480px and below */
+@media (max-width: 480px) {
+  .login-page {
+    min-height: auto;
+  }
+
+  .login-left,
+  .login-right {
+    min-height: 30vh;
+    padding: 0.8rem;
+  }
+
+  .login-card {
+    width: 95%;
+    max-width: 100%;
+    padding: 1.2rem;
+    border-radius: 20px;
+  }
+
+  .login-logo {
+    width: 100px;
+    margin-bottom: 0.8rem;
+  }
+
+  .login-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .login-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .login-form {
+    gap: 0.8rem;
+  }
+
+  .login-form label {
+    font-size: 0.9rem;
+  }
+
+  .login-form input {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+  }
+
+  .login-btn {
+    font-size: 0.9rem;
+    padding: 0.7rem;
+    margin-top: 0.3rem;
+  }
+
+  .login-hint {
+    font-size: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .login-illustration {
+    max-width: 100%;
+    max-height: 300px;
+  }
+}

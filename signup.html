@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ThinkAble | Sign Up</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="signup.css">
+  <script src="partials/navbar.js" defer></script>
+</head>
+<body>
+
+  <!-- MATCHES LOGIN PAGE LAYOUT -->
+  <main class="signup-page">
+
+      <!-- LEFT = SIGN UP CARD -->
+      <section class="signup-left">
+        <div class="signup-card">
+
+          <img src="public/Logo.png" alt="ThinkAble Logo" class="signup-logo">
+
+          <h2 class="signup-title">Create an Account</h2>
+
+          <form id="signupForm" class="signup-form">
+            
+            <label for="su_email">Email</label>
+            <input id="su_email" type="email" required>
+
+            <label for="su_password">Password</label>
+            <input id="su_password" type="password" required>
+
+            <button class="signup-btn" type="submit">Sign Up</button>
+          </form>
+
+          <p class="login-hint">
+            Hint for testing roles: use an email containing
+            <strong>admin</strong>, <strong>parent</strong>, 
+            or anything else for <strong>student</strong>.
+          </p>
+
+        </div>
+      </section>
+
+      <!-- RIGHT = IMAGE -->
+      <section class="signup-right">
+        <img src="public/login_img.png" class="signup-illustration" alt="Illustration">
+      </section>
+
+  </main>
+
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById("su_email").value.trim().toLowerCase();
+      const password = document.getElementById("su_password").value.trim();
+      
+      // Validation
+      if (!email || !password) {
+        alert("Please fill in all fields");
+        return;
+      }
+      
+      if (password.length < 6) {
+        alert("Password must be at least 6 characters");
+        return;
+      }
+      
+      try {
+        const response = await fetch("/api/auth/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password, role: "student" }),
+        });
+        
+        const data = await response.json();
+        
+        if (!data.success) {
+          alert(data.message || "Signup failed");
+          return;
+        }
+        
+        alert("Account created successfully! Redirecting to login...");
+        window.location.href = "login.html";
+      } catch (error) {
+        console.error("Signup error:", error);
+        alert("Connection error. Please try again.");
+      }
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
