@@ -1,0 +1,348 @@
+/* ==========================================================
+   THINKABLE – STUDENT HOMEPAGE (MATCH MOCKUP)
+========================================================== */
+
+:root {
+  --primary-green: #6FAF78;
+  --soft-green: #A1CDA2;
+  --light-mint: #DCEFD8;
+  --off-white: #F5F7F2;
+  --accent-peach: #FFB36B;
+  --dark-green: #2D3A32;
+
+  --beige-card: #e7bf8a;
+  --line: rgba(0,0,0,0.10);
+  --shadow: 0 12px 28px rgba(0,0,0,0.08);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #dfeedd;
+  color: #222;
+}
+
+/* ==========================================================
+   TOP NAV (DARK GREEN BAR)
+========================================================== */
+
+.top-header {
+  background: #2f3b35;
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.branding {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.brand-name {
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.main-nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  text-decoration: none;
+  font-size: 12px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  color: #f2f2f2;
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: rgba(255,255,255,0.14);
+}
+
+.nav-btn.active {
+  background: #f7d7a6;
+  color: #222;
+  border-color: #f7d7a6;
+  font-weight: 700;
+}
+
+.color-divider {
+  height: 10px;
+  background: #e7b26d;
+}
+
+/* ==========================================================
+   PAGE WRAP (FIXES THE "TOO NARROW" ISSUE)
+========================================================== */
+
+.page-wrap {
+  max-width: 1500px;   /* ✅ wider like mockup */
+  margin: 0 auto;
+  padding: 22px;
+}
+
+/* ==========================================================
+   MAIN GRID
+========================================================== */
+
+.main-layout {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 26px;
+  align-items: start;
+}
+
+/* ==========================================================
+   LEFT SIDE
+========================================================== */
+
+.welcome-title {
+  margin: 10px 0 6px;
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.subtitle {
+  margin: 0 0 18px;
+  font-size: 13px;
+  color: rgba(0,0,0,0.6);
+}
+
+/* white pill header */
+.section-pill {
+  background: rgba(255,255,255,0.65);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.06);
+}
+
+.section-pill h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* ==========================================================
+   WORKSHEET ROWS (WIDE BEIGE ROWS LIKE MOCKUP)
+========================================================== */
+
+.worksheet-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 14px;
+}
+
+.worksheet-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  background: var(--beige-card);
+  border-radius: 12px;
+  padding: 14px;
+  border: 2px solid rgba(0,0,0,0.08);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.06);
+  transition: 0.15s ease;
+}
+
+.worksheet-row:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.10);
+}
+
+.row-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.row-img {
+  width: 72px;
+  height: 72px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.25);
+}
+
+.row-info h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.level-tag {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.45);
+  border: 1px solid rgba(0,0,0,0.10);
+  font-weight: 700;
+}
+
+.row-sub {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: rgba(0,0,0,0.65);
+  font-weight: 700;
+}
+
+/* big 2/3 box (RIGHT) */
+.count-box {
+  width: 92px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  font-size: 34px;
+  font-weight: 900;
+  background: #fff;
+  border-radius: 6px;
+  border: 2px solid rgba(0,0,0,0.10);
+}
+
+/* ==========================================================
+   RIGHT SIDE (PROFILE STRIP + BIG WHITE CARD)
+========================================================== */
+
+.right-section {
+  background: rgba(255,255,255,0.18);
+  border-radius: 18px;
+  padding: 14px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: var(--shadow);
+}
+
+.profile-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #8fb18a, #7ea77b);
+  border: 1px solid rgba(255,255,255,0.25);
+  margin-bottom: 14px;
+}
+
+.profile-img {
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.65);
+}
+
+.profile-name {
+  font-size: 13px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.profile-role {
+  margin-top: 2px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.85);
+}
+
+.progress-card {
+  background: rgba(255,255,255,0.85);
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 16px;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.06);
+}
+
+.progress-card-title {
+  font-weight: 900;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.progress-card-body {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 10px;
+}
+
+.progress-card {
+  margin-top: 14px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.10);
+  padding: 16px;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.06);
+}
+
+.progress-title {
+  margin: 0 0 12px;
+  font-size: 28px;       /* matches your screenshot big title */
+  font-weight: 800;
+  text-align: center;
+  color: #444;
+}
+
+.chart-wrap {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.10);
+  padding: 14px;
+  height: 360px;         /* ✅ control chart height */
+}
+
+.chart-img {
+  width: 100%;
+  border-radius: 10px;
+  display: block;
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 1100px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+html.dark body {
+  background: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+html.dark .section-title,
+html.dark .right-section,
+html.dark .progress-chart-box {
+  background: rgba(30,30,30,0.65);
+  border-color: rgba(161,205,162,0.35);
+  color: var(--off-white);
+}

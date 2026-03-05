@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Progress | ThinkAble</title>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="student.css">
+<script src="../script.js" defer></script>
+<script src="../partials/navbar.js" defer></script>
+
+<style>
+  .progress-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--soft-green);
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+
+  .progress-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--dark-green);
+    margin-bottom: 0.5rem;
+  }
+
+  .progress-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #444;
+    margin-bottom: 1.5rem;
+  }
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-left">
+    <img src="../public/Logo.png" class="logo">
+    <h1>Student Progress</h1>
+  </div>
+  <nav>
+      <a href="home.html">Home</a>
+      <a href="worksheets.html">Worksheets</a>
+      <a href="student_dashboard.html" class="active">Dashboard</a>
+      <a href="settings.html">Settings</a>
+      <a href="download-progress.html">Download Progress</a>
+      <a href="../logout.html">Logout</a>
+  </nav>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="progress-container">
+
+  <h2 class="progress-title">Worksheet Performance</h2>
+  <p class="progress-subtitle">
+    Student: <strong id="studentName">John Tan</strong>
+  </p>
+
+  <div style="display:flex; gap:2rem; align-items:flex-start;">
+
+    <!-- CHART -->
+    <div style="flex:2;">
+      <canvas id="resultsChart" height="220"></canvas>
+    </div>
+
+    <!-- FEEDBACK -->
+    <div style="flex:1;">
+      <h3 style="margin-bottom:1rem; color:var(--dark-green);">
+        Feedback Summary
+      </h3>
+      <ul id="feedbackList" style="line-height:1.8;"></ul>
+    </div>
+
+  </div>
+
+</main>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  document.getElementById("studentName").textContent = "John Tan";
+
+  /* === DATA (can be replaced by DB later) === */
+  const labels = [
+    "Literacy",
+    "Numeracy",
+    "Mathematical",
+    "Color",
+    "Shape"
+  ];
+
+  const scores = [
+    78,  // Literacy
+    82,  // Numeracy
+    55,  // Mathematical
+    48,  // Color
+    85   // Shape
+  ];
+
+  /* === FEEDBACK RULES === */
+  function getFeedback(score) {
+    if (score >= 80) return "✅ Strong performance";
+    if (score >= 60) return "⚠️ Fair, can improve";
+    return "❌ Needs more practice";
+  }
+
+  /* === RENDER FEEDBACK LIST === */
+  const feedbackList = document.getElementById("feedbackList");
+  labels.forEach((label, index) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<strong>${label}:</strong> ${getFeedback(scores[index])}`;
+    feedbackList.appendChild(li);
+  });
+
+  /* === CHART === */
+  const ctx = document.getElementById("resultsChart");
+
+  const chart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Score (%)",
+        data: scores,
+        backgroundColor: [
+          "#6FAF78",
+          "#000000",
+          "#FFB36B",
+          "#F28C8C",
+          "#7AAED6"
+        ]
+      }]
+    },
+    options: {
+      indexAxis: "y",   // 🔥 Horizontal
+      responsive: true,
+      scales: {
+        x: {
+          beginAtZero: true,
+          max: 100
+        }
+      },
+      plugins: {
+        legend: { display: false }
+      }
+    }
+  });
+
+  /* === SAVE IMAGE FOR DOWNLOAD PAGE === */
+  setTimeout(() => {
+    const image = ctx.toDataURL("image/png");
+    localStorage.setItem("progressChartImage", image);
+  }, 500);
+
+});
+</script>
+
+
+
+</body>
+</html>

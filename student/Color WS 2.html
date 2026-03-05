@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Color WS2</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../partials/navbar.js" defer></script>
+</head>
+
+<style>
+/* ===== DO NOT CHANGE STYLES ===== */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: #F5F7F2;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ================= TOP BAR ================= */
+.ws-top {
+  background: #1e1e1e;
+  color: white;
+  padding: 14px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+}
+
+.exit {
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ================= PAGE ================= */
+.ws-page {
+  display: none;
+  height: calc(100vh - 56px);
+  padding: 40px 60px;
+  background: white;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ws-page.active {
+  display: flex;
+}
+
+/* ================= META ================= */
+.meta {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+/* ================= INSTRUCTION ================= */
+.instruction {
+  font-size: 22px;
+  margin: 30px 0;
+  font-weight: 500;
+}
+
+/* ================= NUMBER ================= */
+.number {
+  font-size: 72px;
+  font-weight: bold;
+  margin: 30px 0;
+}
+
+/* ================= COLORS ================= */
+.letters {
+  margin: 60px 0;
+}
+
+.letter {
+  width: 70px;
+  height: 70px;
+  display: inline-block;
+  margin: 0 30px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.correct {
+  outline: 6px solid #1E7F3C;
+}
+
+.wrong {
+  outline: 6px solid #9A1C1C;
+}
+
+/* ================= MESSAGE ================= */
+.error-message {
+  color: #9A1C1C;
+  font-size: 22px;
+  font-weight: bold;
+  margin: 20px 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  height: 40px;
+}
+
+.error-message.show {
+  opacity: 1;
+}
+
+.error-message.correct-show {
+  opacity: 1;
+  color: #1E7F3C;
+}
+
+/* ================= UNDERLINE ================= */
+.underline {
+  width: 85%;
+  margin: 50px auto 0;
+  border-top: 3px solid black;
+}
+
+/* ================= NAV ================= */
+.nav {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+button {
+  padding: 14px 32px;
+  font-size: 18px;
+  border-radius: 14px;
+  border: none;
+  background: #FFB36B;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ================= RESULTS PAGE ================= */
+.results-page {
+  display: none;
+  min-height: 100vh;
+  padding: 40px 60px;
+  background: white;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.results-page.active {
+  display: flex;
+}
+
+.chart-container {
+  width: 320px;
+  height: 320px;
+  position: relative;
+}
+
+.score-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.score-percentage {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.score-feedback {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1E7F3C;
+}
+
+.results-buttons {
+  display: flex;
+  gap: 30px;
+}
+
+.results-btn {
+  padding: 12px 28px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.review-btn {
+  background: white;
+  border: 2px solid #1e1e1e;
+}
+
+.home-btn {
+  background: #FFB36B;
+}
+</style>
+
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<div class="ws-top">
+  <div id="title">Color WS2 Q1</div>
+  <div class="exit" onclick="exitWorksheet()">Exit Worksheet</div>
+</div>
+
+<audio id="correctSound" src="correct.mp3"></audio>
+<audio id="wrongSound" src="wrong.mp3"></audio>
+
+<!-- ================= Q1 ================= -->
+<div class="ws-page active" id="q1">
+  <div class="meta">MindCognition™</div>
+  <div class="meta">Advanced</div>
+  <div class="meta">Color Recognition 6–15</div>
+
+  <div class="instruction">(1) Match number to the correct color.</div>
+  <div class="number" style="color:#6BBF59;">5</div>
+
+  <div class="letters">
+    <span class="letter" style="background:red;"></span>
+    <span class="letter" style="background:blue;"></span>
+    <span class="letter" style="background:#6BBF59;" data-correct="true"></span>
+  </div>
+
+  <div class="error-message">Oh no you picked the wrong answer! Try again.</div>
+
+  <div class="underline"></div>
+  <div class="nav">
+    <button disabled id="nextBtn" onclick="next()">Next</button>
+  </div>
+</div>
+
+<!-- ================= Q2 ================= -->
+<div class="ws-page" id="q2">
+  <div class="instruction">(2) Match number to the correct color.</div>
+  <div class="number" style="color:#B08968;">8</div>
+
+  <div class="letters">
+    <span class="letter" style="background:#F2C94C;"></span>
+    <span class="letter" style="background:#9B51E0;"></span>
+    <span class="letter" style="background:#B08968;" data-correct="true"></span>
+  </div>
+
+  <div class="error-message">Oh no you picked the wrong answer! Try again.</div>
+
+  <div class="underline"></div>
+  <div class="nav">
+    <button onclick="prev()">Previous</button>
+    <button disabled id="nextBtn" onclick="next()">Next</button>
+  </div>
+</div>
+
+<!-- ================= Q3 ================= -->
+<div class="ws-page" id="q3">
+  <div class="instruction">(3) Match number to the correct color.</div>
+  <div class="number" style="color:#E67E22;">10</div>
+
+  <div class="letters">
+    <span class="letter" style="background:#E67E22;" data-correct="true"></span>
+    <span class="letter" style="background:#3F37FF;"></span>
+    <span class="letter" style="background:#6BBF59;"></span>
+  </div>
+
+  <div class="error-message">Oh no you picked the wrong answer! Try again.</div>
+
+  <div class="underline"></div>
+  <div class="nav">
+    <button onclick="prev()">Previous</button>
+    <button disabled id="nextBtn" onclick="next()">Next</button>
+  </div>
+</div>
+
+<!-- ================= Q4 ================= -->
+<div class="ws-page" id="q4">
+  <div class="instruction">(4) Match number to the correct color.</div>
+  <div class="number" style="color:#3F37FF;">12</div>
+
+  <div class="letters">
+    <span class="letter" style="background:#EB4BC6;"></span>
+    <span class="letter" style="background:#3F37FF;" data-correct="true"></span>
+    <span class="letter" style="background:black;"></span>
+  </div>
+
+  <div class="error-message">Oh no you picked the wrong answer! Try again.</div>
+
+  <div class="underline"></div>
+  <div class="nav">
+    <button onclick="prev()">Previous</button>
+    <button disabled id="nextBtn" onclick="next()">Next</button>
+  </div>
+</div>
+
+<!-- ================= Q5 ================= -->
+<div class="ws-page" id="q5">
+  <div class="instruction">(5) Match number to the correct color.</div>
+  <div class="number" style="color:#F2C94C;">15</div>
+
+  <div class="letters">
+    <span class="letter" style="background:#E53935;"></span>
+    <span class="letter" style="background:#F2C94C;" data-correct="true"></span>
+    <span class="letter" style="background:gray;"></span>
+  </div>
+
+  <div class="error-message">Oh no you picked the wrong answer! Try again.</div>
+
+  <div class="underline"></div>
+  <div class="nav">
+    <button onclick="prev()">Previous</button>
+    <button disabled id="nextBtn" onclick="submitWS()">Submit</button>
+  </div>
+</div>
+
+<!-- ================= RESULTS ================= -->
+<div class="results-page" id="results">
+  <div class="chart-container">
+    <canvas id="scoreChart"></canvas>
+    <div class="score-overlay">
+      <div class="score-percentage" id="scoreText"></div>
+      <div class="score-feedback" id="scoreFeedback"></div>
+    </div>
+  </div>
+
+  <div class="results-buttons">
+    <button class="results-btn review-btn" onclick="location.reload()">Review</button>
+    <button class="results-btn home-btn" onclick="exitWorksheet()">Home</button>
+  </div>
+</div>
+
+<script>
+let current = 1;
+const total = 5;
+let score = 0;
+const answered = new Set();
+const wrongBeforeCorrect = new Set();
+
+function show(n) {
+  document.querySelectorAll(".ws-page").forEach(p => p.classList.remove("active"));
+  document.getElementById("q" + n).classList.add("active");
+  document.getElementById("title").innerText = "Color WS2 Q" + n;
+}
+
+function next() { if (current < total) show(++current); }
+function prev() { if (current > 1) show(--current); }
+
+function submitWS() {
+  document.querySelectorAll(".ws-page").forEach(p => p.classList.remove("active"));
+  document.getElementById("results").classList.add("active");
+
+  const percent = Math.round((score / total) * 100);
+  document.getElementById("scoreText").textContent = percent + "%";
+
+  document.getElementById("scoreFeedback").textContent =
+    percent >= 80 ? "Great job!" :
+    percent >= 60 ? "Good effort!" : "Keep practicing!";
+
+  new Chart(document.getElementById("scoreChart"), {
+    type: "doughnut",
+    data: {
+      datasets: [{
+        data: [score, total - score],
+        backgroundColor: ["#8BC88B", "#E5E5E5"],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+
+function exitWorksheet() {
+  window.location.href = "ColorWorksheets.html";
+}
+
+document.addEventListener("click", e => {
+  if (!e.target.classList.contains("letter")) return;
+
+  const page = document.querySelector(".ws-page.active");
+  const qid = page.id;
+  const msg = page.querySelector(".error-message");
+  const btn = page.querySelector("#nextBtn");
+
+  if (answered.has(qid)) return;
+
+  if (e.target.dataset.correct === "true") {
+    e.target.classList.add("correct");
+    document.getElementById("correctSound").play();
+
+    msg.textContent = "Correct! Well done!";
+    msg.classList.add("correct-show");
+    msg.classList.remove("show");
+
+    if (!wrongBeforeCorrect.has(qid)) score++;
+    answered.add(qid);
+    btn.disabled = false;
+  } else {
+    e.target.classList.add("wrong");
+    document.getElementById("wrongSound").play();
+    wrongBeforeCorrect.add(qid);
+
+    msg.textContent = "Oh no you picked the wrong answer! Try again.";
+    msg.classList.add("show");
+    msg.classList.remove("correct-show");
+  }
+});
+</script>
+
+</body>
+</html>
